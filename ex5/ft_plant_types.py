@@ -6,7 +6,7 @@
 #   By: fschnorr <fschnorr@student.42berlin.de>      +#+  +:+       +#+       #
 #                                                  +#+#+#+#+#+   +#+          #
 #   Created: 2026/02/20 15:44:13 by fschnorr            #+#    #+#            #
-#   Updated: 2026/02/23 15:37:38 by fschnorr           ###   ########.fr      #
+#   Updated: 2026/02/24 11:15:05 by fschnorr           ###   ########.fr      #
 #                                                                             #
 # ########################################################################### #
 
@@ -96,6 +96,24 @@ class Tree(Plant):
             self._trunk_diameter = trunk_diameter
 
 
+class Vegetable(Plant):
+    def __init__(
+        self, name: str, height_cm: int, age_days: int, harvest_season: str,
+        nutritional_value: str
+    ) -> None:
+        super().__init__(name, height_cm, age_days)
+        self.harvest_season = harvest_season
+        self.nutritional_value = nutritional_value
+
+    def nutritional_value_info(self) -> None:
+        print(f"{self.name} is rich in {self.nutritional_value}")
+
+    def get_info(self) -> str:
+        return (
+            f"{self.name} (Vegetable): {self.get_height()}cm, "
+            f"{self.get_age()} days, {self.harvest_season} harvest")
+
+
 if __name__ == "__main__":
     print("=== Garden Plant Types ===")
 
@@ -118,3 +136,17 @@ if __name__ == "__main__":
     for tree in trees:
         print(f"\n{tree.get_info()}")
         tree.produce_shade()
+
+    vegetable_data = [
+        ("Tomato", 80, 90, "summer", "vitamin C"),
+    ]
+    vegetables = []
+    for (
+        name, height_cm, age_days, harvest_season, nutritional_value
+    ) in vegetable_data:
+        vegetables.append(Vegetable(
+            name, height_cm, age_days, harvest_season, nutritional_value
+            ))
+    for vegetable in vegetables:
+        print(f"\n{vegetable.get_info()}")
+        vegetable.nutritional_value_info()
